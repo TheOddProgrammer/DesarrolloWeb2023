@@ -1,0 +1,33 @@
+.contenedorX {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas: 
+        "header header header header"
+        "menu contenido contenido contenido"
+        "footer footer footer footer";
+}
+
+.header {
+    background:purple;
+    height: 60px;
+    grid-area: header;
+}
+
+.menu {
+    background: coral;
+    text-align: center;
+    grid-area: menu;
+}
+
+.contenido {
+    background:bisque;
+    text-align: center;
+    grid-area: contenido;
+}
+
+.footer {
+    background: orange;
+    height: 30px;
+    grid-area: footer;
+}
