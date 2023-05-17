@@ -5,13 +5,13 @@
   margin: 0 auto;
   padding: 2rem;
 
-  font-weight: normal;
+  font-weight:normal;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: rgb(131, 36, 199);
+  color: rgb(205, 191, 37);
   transition: 0.4s;
 }
 
