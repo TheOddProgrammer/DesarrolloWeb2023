@@ -1,83 +1,139 @@
 <script setup>
-import { ref } from 'vue';
+  import { ref, computed } from 'vue';
 
-  const notify = ref(0);
-  const title = ref("Juan David")
+  let Naranjas = ref(0);
+  const precioNaranjas = 500;
+  let Manzanas = ref(0);
+  const precioManzanas = 300;
+  let Bananas = ref(0);
+  const precioBananas = 600;
+  let Total = ref(0);
+  let Pagar = ref(0);
 
-  function increase(){
-    notify.value++;
+  function increaseNaranjas() {
+    Naranjas.value++;
+    total();
+    pagar();
+  }
+  function decreaseNaranjas() {
+    if (Naranjas.value > 0) {
+      Naranjas.value--;
+      total();
+      pagar();
+    }
+  }
+  function increaseBananas() {
+    Bananas.value++;
+    total();
+  }
+  function decreaseBananas() {
+    if (Bananas.value > 0) {
+      Bananas.value--;
+      total();
+    }
+  }
+  function increaseManzanas() {
+    Manzanas.value++;
+    total();
+  }
+  function decreaseManzanas() {
+    if (Manzanas.value > 0) {
+      Manzanas.value--;
+    }
+  }
+  function total() {
+    Total.value = Manzanas.value + Bananas.value + Naranjas.value;
+    pagar();
+  }
+  function limpiar() {
+    Manzanas.value = 0;
+    Naranjas.value = 0;
+    Bananas.value = 0;
+    Total.value = 0;
+    Pagar.value = 0;
+  }
+  function pagar() {
+    Pagar.value = (Naranjas.value*precioNaranjas) + (Manzanas.value*precioManzanas) + (Bananas.value*precioBananas);
   }
 
-  function decrease(){
-    if (notify.value>0) {
-      notify.value--;
-    } 
-  }
+  const iva = computed(() => {
+    return Pagar.value > 0 ? (Pagar.value+(Pagar.value*0.2)) : Pagar.value;
+  })
 </script>
 
 <template>
-
   <h1>
-    {{ title }}
+    Preparacion Parcial N°1
   </h1>
 
-  <div class="user">
-
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-
-    <div class="notification" v-if="notify != 0" >{{ notify }}</div>
-
-  </div> <br>
-  <div>
-    <span @click="increase">
+  <div class="Productos">
+    <h2>
+      Naranjas Cantidad: {{ Naranjas }}
+    </h2>
+    <span @click="increaseNaranjas">
       +
     </span>
-
-    <span @click="decrease">
+    <span @click="decreaseNaranjas">
       -
     </span>
   </div>
 
-  <input type="text" v-model="title">
-  
+  <div class="Productos">
+    <h2>
+      Bananos Cantidad: {{ Bananas }}
+    </h2>
+    <span @click="increaseBananas">
+      +
+    </span>
+    <span @click="decreaseBananas">
+      -
+    </span>
+  </div>
+
+  <div class="Productos">
+    <h2>
+      Manzanas Cantidad {{ Manzanas }}
+    </h2>
+    <span @click="increaseManzanas">
+      +
+    </span>
+    <span @click="decreaseManzanas">
+      -
+    </span>
+  </div>
+
+  <h2>Total {{ Total }} Productos</h2>
+  <h2>Paga Total: {{ Pagar }}</h2>
+  <h2>Total Con IVA: {{ iva }}</h2>
+
+  <button v-if="Total>0" @click="limpiar">Clean</button>
 </template>
 
 <style scoped>
-.user {
-  width:80px;
-  height:80px;
-  color:peru;
-  position: relative;
-}
-.notification{
-  background-color: red;
-  color: white;
-  border: 2px solid;
-  border-radius: 20px;
-  width: 28px;
-  height: 28px;
-  text-align: center;
-  font-weight: bold;
-  position: absolute; 
-  top: 0px;
-  right: 0px;
-  border-color: rgb(81, 25, 25);
-  
-}
-span {
-  background-color: orange;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  margin-right: 35px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-span:hover {
-  background-color: rgb(223, 147, 7);
-  cursor: pointer;
-}
+  h1 {
+    font-weight: bold;
+    color: red;
+    font-size:medium;
+  }
+
+  h2 {
+    font-size: small;
+  }
+
+  span {
+    height: 25px;
+    width: 30px;
+    background-color: green;
+    margin: 10px;
+    text-align: center;
+    padding: 0 10px 0 10px;
+  }
+
+  span:hover {
+    cursor: pointer;
+  }
+
+  .Productos {
+    text-align: center;
+  }
 </style>

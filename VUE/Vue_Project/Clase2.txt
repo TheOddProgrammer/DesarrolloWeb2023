@@ -1,0 +1,50 @@
+<script setup>
+import { ref, computed, /*reactive*/ } from 'vue';
+
+const num = ref(9)
+
+const computado = computed(() => {
+  return num.value > 0 ? num.value * 2 : num.value
+})
+
+const users = [
+  {
+    name: 'Federico',
+    lastname: 'Fernandez',
+    age: '43'
+  },
+  {
+    name: 'Andres',
+    lastname: 'Robles',
+  },
+  {
+    name: 'Juan',
+    lastname: 'Melo',
+  },
+]
+</script>
+
+<template>
+
+  <p>
+    Hola Mundo, Yo tengo {{ computado }} años pero
+    antes tenía {{ num }} años.
+  </p>
+
+  <div v-for="(user,key) in users" :key="key"> <br>
+    Nombre: {{ user.name }} <br> 
+    Apellido: {{ user.lastname }} <br>
+
+    <span v-if="user.age">
+      Edad: {{ user.age }}
+    </span>
+
+  </div>
+
+</template>
+
+<style scoped>
+p {
+  text-align: center;
+}
+</style>
