@@ -11,8 +11,7 @@
     });
 
     const emit = defineEmits([
-        'deleteTask',
-        'addTask'
+        'deleteTask'
     ])
 
     function deleteTask(index) {
@@ -31,6 +30,7 @@
         <span class=" h-6 inline-block px-2 text-white bg-red-800 rouded hover:bg-red-400 hover:cursor-pointer" @click="deleteTask(props.index)">
             X
         </span>
+
     </div>
 
 </template>
